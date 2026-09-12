@@ -1,0 +1,16 @@
+# MediaNest local/runtime data
+bin/
+Downloads/
+data/
+temp/
+
+# Local backups
+*.backup
+*.new
+
+# PowerShell/editor/OS files
+*.user
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
