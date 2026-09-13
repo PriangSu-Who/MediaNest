@@ -10,7 +10,8 @@ Start `MediaNest.cmd`.
 
 The main menu provides access to downloads, queue/history management, playlist management, updates, and settings.
 
-> **Screenshot:** `screenshots/main-menu.png`
+> **Screenshot:** `<img width="925" height="628" alt="Screenshot 2026-09-14 000828" src="https://github.com/user-attachments/assets/69861fa7-bc01-4366-8461-06e3393ca3ef" />
+`
 
 ---
 
