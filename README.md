@@ -20,6 +20,16 @@ MediaNest is a portable Windows media downloader built around **yt-dlp**, **FFmp
 - Component verification and repair for yt-dlp, Deno, FFmpeg, ffprobe, and ffplay
 - A simple menu-driven interface without requiring users to type raw yt-dlp arguments
 
+## Documentation & Tutorial
+
+New to MediaNest? Start with the **[User Tutorial](docs/TUTORIAL.md)**.
+
+For installation and first-run instructions, see the **[Setup Guide](docs/SETUP.md)**.
+
+For a complete feature reference, see **[Features](docs/FEATURES.md)**.
+
+For the visual documentation plan and release screenshot checklist, see **[Screenshots](docs/SCREENSHOTS.md)**.
+
 ## Output organization
 
 Direct video downloads are stored under:
@@ -43,7 +53,7 @@ Downloads\\Playlists\\MP4\\<Playlist Name>\\
 
 ## Current development baseline
 
-The project is being stabilized from the known-working **v1.2.3** download architecture. The current test work includes an isolated subtitle cleanup change and structured yt-dlp progress data for the planned in-place progress display.
+The project is being stabilized from the known-working **v1.2.3** download architecture. The current beta test work includes an isolated subtitle cleanup change and structured yt-dlp progress data for the planned in-place progress display.
 
 The project deliberately favors small, testable changes over broad refactors. The native PowerShell yt-dlp invocation is treated as a protected part of the working architecture until a replacement has been separately verified.
 
