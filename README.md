@@ -106,4 +106,6 @@ See `RELEASE_CHECKLIST.md` for the release gate and `SECURITY.md` for security r
 
 ## License
 
-The MediaNest source license has not yet been selected. Until a license is added, do not assume that the source is available for unrestricted reuse or redistribution.
+MediaNest is licensed under the **MIT License**. See `LICENSE` for the full license text.
+
+The MIT License applies to MediaNest's own source code. Third-party components such as yt-dlp, Deno, and FFmpeg remain subject to their respective licenses and notices.
