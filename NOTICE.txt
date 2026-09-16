@@ -1,8 +1,19 @@
-MediaNest uses third-party components distributed by their respective projects.
+MediaNest v1.3.0
+Third-Party Notices
 
-- yt-dlp: https://github.com/yt-dlp/yt-dlp
-- Deno: https://github.com/denoland/deno
-- FFmpeg: https://ffmpeg.org/
-- FFmpeg Windows builds: https://www.gyan.dev/ffmpeg/builds/
+MediaNest is a front end/orchestration project. It does not replace or alter the
+licenses of the third-party components it uses.
 
-Review the upstream licenses and notices before any public redistribution of bundled components.
+MediaNest uses and/or downloads the following upstream components:
+
+- yt-dlp — https://github.com/yt-dlp/yt-dlp
+- Deno — https://github.com/denoland/deno
+- FFmpeg — https://ffmpeg.org/
+- Gyan.dev FFmpeg Windows builds — https://www.gyan.dev/ffmpeg/builds/
+
+These third-party components remain subject to their respective licenses,
+copyright notices, and distribution terms. Users who redistribute MediaNest
+should review the applicable upstream license and notice files.
+
+The MediaNest setup process verifies downloaded yt-dlp, Deno, and FFmpeg
+packages with SHA-256 checksums before installing them.
