@@ -1,4 +1,4 @@
-# MediaNest Setup v0.1.0-beta.1
+# MediaNest Setup v1.3.0
 # Installs the external components required by MediaNest.
 # Windows PowerShell 5.1 compatible.
 
@@ -44,7 +44,7 @@ function Download-File([string]$Url, [string]$Destination, [string]$Label) {
 
     $request = [System.Net.HttpWebRequest]::Create($Url)
     $request.Method = 'GET'
-    $request.UserAgent = 'MediaNest-Setup/0.1.0-beta.1'
+    $request.UserAgent = 'MediaNest-Setup/1.3.0'
     $request.AllowAutoRedirect = $true
     $response = $null
     $input = $null
@@ -188,23 +188,31 @@ function Verify-Components {
 
 try {
     Show-Header 'MEDIANEST SETUP'
-    Write-Host 'This will install the components required by MediaNest.' -ForegroundColor White
-    Write-Host 'No administrator privileges are required.' -ForegroundColor DarkGray
+    Write-Host 'This installs only missing MediaNest components.' -ForegroundColor White
+    Write-Host 'Existing components are left untouched. Downloaded packages are SHA-256 verified.' -ForegroundColor DarkGray
     Write-Host ''
     Ensure-Folders
 
-    if ((Test-Path -LiteralPath $YtDlp) -and (Test-Path -LiteralPath $Deno) -and (Test-Path -LiteralPath $FFmpeg) -and (Test-Path -LiteralPath $FFprobe) -and (Test-Path -LiteralPath $FFplay)) {
-        Write-Host '[OK] All required components are already installed.' -ForegroundColor Green
+    $missing = @()
+    if (-not (Test-Path -LiteralPath $YtDlp)) { $missing += 'yt-dlp' }
+    if (-not (Test-Path -LiteralPath $Deno)) { $missing += 'Deno' }
+    if (-not (Test-Path -LiteralPath $FFmpeg)) { $missing += 'FFmpeg' }
+    if (-not (Test-Path -LiteralPath $FFprobe)) { $missing += 'ffprobe' }
+    if (-not (Test-Path -LiteralPath $FFplay)) { $missing += 'ffplay' }
+
+    if ($missing.Count -eq 0) {
+        Write-Host '[OK] All required components are already installed. Nothing will be re-downloaded.' -ForegroundColor Green
     } else {
-        Install-YtDlp
-        Install-Deno
-        Install-FFmpeg
+        Write-Host ('Missing: ' + ($missing -join ', ')) -ForegroundColor Yellow
+        if (-not (Test-Path -LiteralPath $YtDlp)) { Install-YtDlp }
+        if (-not (Test-Path -LiteralPath $Deno)) { Install-Deno }
+        if (-not (Test-Path -LiteralPath $FFmpeg) -or -not (Test-Path -LiteralPath $FFprobe) -or -not (Test-Path -LiteralPath $FFplay)) { Install-FFmpeg }
         Verify-Components
     }
 
     Write-Host ''
     Write-Host 'Creating MediaNest data folders...' -ForegroundColor Cyan
-    foreach ($d in @((Join-Path $Root 'Downloads\Videos'),(Join-Path $Root 'Downloads\Audio\MP3'),(Join-Path $Root 'Downloads\Playlists'),(Join-Path $Root 'data\archives'),(Join-Path $Root 'data\history'),(Join-Path $Root 'data\queue'),$TempDir)) {
+    foreach ($d in @((Join-Path $Root 'Downloads\Videos'),(Join-Path $Root 'Downloads\Audio\MP3'),(Join-Path $Root 'Downloads\Playlists\MP3'),(Join-Path $Root 'Downloads\Playlists\MP4'),(Join-Path $Root 'data\archives'),(Join-Path $Root 'data\history'),(Join-Path $Root 'data\queue'),$TempDir)) {
         if (-not (Test-Path -LiteralPath $d)) { New-Item -ItemType Directory -Path $d -Force | Out-Null }
     }
     Write-Host '[OK] Folders ready.' -ForegroundColor Green
