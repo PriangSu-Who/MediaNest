@@ -1,121 +1,101 @@
-# MediaNest
+MediaNest v1.3.0
+Download - Convert - Organize
 
-**Download • Convert • Organize**
+MediaNest is a portable Windows media downloader built around yt-dlp, Deno, and FFmpeg.
+It provides a simple menu-driven interface for downloading video, extracting MP3 audio,
+downloading multiple URLs, and managing YouTube playlists.
 
-MediaNest is a portable Windows media downloader built around **yt-dlp**, **FFmpeg**, and **Deno**. It is implemented with Windows PowerShell/CMD and does not require Python for normal operation.
+QUICK START
 
-> **Status:** Active development / pre-release testing. MediaNest is not yet a public stable release.
+1. Extract the entire MediaNest-v1.3.0 folder to any location.
+2. Open the folder.
+3. Double-click MediaNest.cmd.
+4. On first run, if required components are missing, choose "Run MediaNest Setup".
+5. After setup completes, MediaNest is ready to use.
 
-## What MediaNest is designed to do
+Do not move or rename MediaNest.ps1, Setup MediaNest.ps1, or MediaNest.cmd away from
+the same folder.
 
-- Video downloads with **Best Available** or selectable quality (2160p, 1440p, 1080p, 720p, 480p, 360p)
-- Graceful fallback when a requested quality is unavailable
+REQUIREMENTS
+
+- Windows with Windows PowerShell 5.1
+- Internet connection for setup and media downloads
+- Python is not required for normal operation
+
+MediaNest is portable and stores its downloads and local data inside its own folder.
+
+FEATURES
+
+- Video downloads with Best Available or selectable quality
 - MP3 extraction with metadata and embedded artwork
 - Optional subtitle download and embedding
-- Multiple URL downloads
+- Multiple URL downloads through the queue
 - YouTube playlist downloads
-- Playlist **new-only** updates using a download archive
-- Download queue and history
-- Portable local data and settings
-- Component verification and repair for yt-dlp, Deno, FFmpeg, ffprobe, and ffplay
-- A simple menu-driven interface without requiring users to type raw yt-dlp arguments
+- Playlist new-only updates using a download archive
+- Playlist stop control during active runs
+- Download queue
+- Download history with downloaded filename when available
+- Playlist Manager
+- Update Center for yt-dlp, Deno, and FFmpeg tools
+- Component verification and repair/setup
+- No automatic clipboard use
 
-## Documentation & Tutorial
+OUTPUT FOLDERS
 
-New to MediaNest? Start with the **[User Tutorial](docs/TUTORIAL.md)**.
+Downloads\
+├── Videos\
+│   └── video.mp4
+├── Audio\
+│   └── MP3\
+│       └── song.mp3
+└── Playlists\
+    ├── MP3\
+    │   └── Playlist Name\
+    └── MP4\
+        └── Playlist Name\
 
-For installation and first-run instructions, see the **[Setup Guide](docs/SETUP.md)**.
+LOCAL DATA
 
-For a complete feature reference, see **[Features](docs/FEATURES.md)**.
+data\
+├── archives\
+├── history\
+│   └── history.json
+├── queue\
+│   └── queue.json
+├── playlists.json
+└── settings.json
 
-For the visual documentation plan and release screenshot checklist, see **[Screenshots](docs/SCREENSHOTS.md)**.
+The application creates these folders automatically when needed.
 
-## Output organization
+COMPONENTS
 
-Direct video downloads are stored under:
+MediaNest uses:
+- yt-dlp official Windows standalone executable
+- Deno official Windows x86_64 build
+- FFmpeg, ffprobe, and ffplay from Gyan.dev Windows builds
 
-```text
-Downloads\\Videos\\
-```
+Setup downloads required components from their upstream sources and verifies the
+downloaded packages with SHA-256 checksums before installation.
 
-Direct MP3 downloads are stored under:
+LICENSING
 
-```text
-Downloads\\Audio\\MP3\\
-```
+MediaNest's own source code is licensed under the MIT License. See LICENSE.
 
-Playlist downloads are organized with the media type **before** the playlist name:
+yt-dlp, Deno, FFmpeg, and the Gyan.dev Windows builds are third-party components
+and remain subject to their respective licenses and notices. See NOTICE.txt and
+the upstream projects for details.
 
-```text
-Downloads\\Playlists\\MP3\\<Playlist Name>\\
-Downloads\\Playlists\\MP4\\<Playlist Name>\\
-```
+UPSTREAM SOURCES
 
-## Current development baseline
+yt-dlp: https://github.com/yt-dlp/yt-dlp
+Deno: https://github.com/denoland/deno
+FFmpeg: https://ffmpeg.org/
+Gyan.dev FFmpeg builds: https://www.gyan.dev/ffmpeg/builds/
 
-The project is being stabilized from the known-working **v1.2.3** download architecture. The current beta test work includes an isolated subtitle cleanup change and structured yt-dlp progress data for the planned in-place progress display.
+PORTABLE USE
 
-The project deliberately favors small, testable changes over broad refactors. The native PowerShell yt-dlp invocation is treated as a protected part of the working architecture until a replacement has been separately verified.
+Keep the complete MediaNest folder together. Downloads, settings, queue data,
+playlist data, history, archives, and temporary files are stored locally in the
+MediaNest folder.
 
-## Project layout
-
-A normal portable installation is intended to look like:
-
-```text
-MediaNest/
-├── bin/
-│   ├── yt-dlp.exe
-│   ├── deno.exe
-│   ├── ffmpeg.exe
-│   ├── ffprobe.exe
-│   └── ffplay.exe
-├── Downloads/
-│   ├── Videos/
-│   ├── Audio/
-│   │   └── MP3/
-│   └── Playlists/
-│       ├── MP3/
-│       │   └── <Playlist Name>/
-│       └── MP4/
-│           └── <Playlist Name>/
-├── data/
-│   ├── archives/
-│   ├── history/
-│   ├── queue/
-│   └── settings.json
-├── temp/
-├── MediaNest.cmd
-├── MediaNest.ps1
-└── Setup MediaNest.ps1
-```
-
-Runtime folders such as `bin`, `Downloads`, `data`, and `temp` are intentionally excluded from source control. They are created or populated locally by MediaNest.
-
-## Third-party components
-
-MediaNest uses third-party software from their respective projects:
-
-- yt-dlp — https://github.com/yt-dlp/yt-dlp
-- Deno — https://github.com/denoland/deno
-- FFmpeg — https://ffmpeg.org/
-- Gyan.dev FFmpeg Windows builds — https://www.gyan.dev/ffmpeg/builds/
-
-See `NOTICE.txt` for the project's current attribution notes. Before public redistribution of bundled third-party binaries, review the applicable upstream licenses and notices and ensure the release package complies with them.
-
-## Repository policy
-
-The repository should contain MediaNest source, documentation, and project metadata—not downloaded media, temporary setup data, local history/queue data, or installed third-party executables.
-
-Never commit credentials, API keys, cookies, authentication headers, private URLs, or other secrets.
-
-## Release readiness
-
-MediaNest is not considered release-ready until the exact build has passed the project's release checklist, including clean-machine installation and download tests.
-
-See `RELEASE_CHECKLIST.md` for the release gate and `SECURITY.md` for security reporting guidance.
-
-## License
-
-MediaNest is licensed under the **MIT License**. See `LICENSE` for the full license text.
-
-The MIT License applies to MediaNest's own source code. Third-party components such as yt-dlp, Deno, and FFmpeg remain subject to their respective licenses and notices.
+For normal use, start MediaNest with MediaNest.cmd.
